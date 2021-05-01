@@ -30,7 +30,7 @@ g1 + geom_smooth(method='lm', se=F)
 summary(modelo1)
 cor.test(dados$valor,dados$ano)
 
-# Análise regressão linear simples entre Valor e Ano
+# Análise regressão linear simples entre Valor e KM
 g2 = ggplot(data=dados, 
             aes(x=valor,y=quilometragem))+
   geom_point()+
@@ -66,7 +66,7 @@ ggplot(data=dados,
   labs(x="Modelo", y = "Valor") +
   theme_minimal()
 
-# Análise regressão linear simples entre Valor e Motor
+# Análise regressão linear simples entre Valor e Modelo
 modelo4 = lm(dados$valor~dados$modelo)
 coef(modelo4)
 anova(modelo4)
