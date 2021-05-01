@@ -19,27 +19,29 @@ shapiro.test(dados$modelo)
 # Gráficos das variáveis em estudo (cada variável explicativa versus variável resposta)
 # Análise regressão linear simples entre Valor e Ano
 g1 = ggplot(data=dados, 
-            aes(x=ano,y=valor))+
+            aes(x=valor,y=ano))+
   geom_point() +
-  labs(x = 'Ano', y = 'Valor (reais)') +
+  labs(x = 'Valor', y = 'Ano') +
   theme_minimal()
 
 modelo1 = lm(dados$valor~dados$ano)
 coef(modelo1)
 g1 + geom_smooth(method='lm', se=F)
 summary(modelo1)
+cor.test(dados$valor,dados$ano)
 
 # Análise regressão linear simples entre Valor e Ano
 g2 = ggplot(data=dados, 
-            aes(x=quilometragem,y=valor))+
+            aes(x=valor,y=quilometragem))+
   geom_point()+
-  labs(x = 'Quilometragem', y = 'Valor (reais)') +
+  labs(x = 'Valor', y = 'KM') +
   theme_minimal()
 
-modelo2 = lm(dados$valor~dados$ano)
+modelo2 = lm(dados$valor~dados$quilometragem)
 coef(modelo2)
 g2 + geom_smooth(method='lm', se=F)
 summary(modelo2)
+cor.test(dados$valor,dados$quilometragem)
 
 # Leitura das variáveis indicadoras
 dados$motor <- factor(dados$motor)
@@ -68,11 +70,3 @@ ggplot(data=dados,
 modelo4 = lm(dados$valor~dados$modelo)
 coef(modelo4)
 anova(modelo4)
-
-# Ajuste do modelo de regressão linear múltipla
-modeloX <- lm(valor ~ ano + quilometragem + motor + modelo, data=dados) 
-coef(modeloX) # imprimir coeficientes do modelo
-
-summary(modeloX)
-confint(modeloX)
-anova(modeloX)
